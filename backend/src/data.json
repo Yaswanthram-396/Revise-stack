@@ -1,0 +1,47 @@
+[
+    {
+        "id": 101,
+        "is_active": true,
+        "profile": {
+            "first_name": "Alex",
+            "last_name": "Mercer",
+            "email": "alex.mercer@example.com",
+            "phone": "+1-555-0199"
+        },
+        "roles": [
+            "administrator",
+            "developer"
+        ],
+        "preferences": {
+            "theme": "dark",
+            "notifications": {
+                "email": true,
+                "sms": false
+            }
+        },
+        "account_balance": 1540.50,
+        "last_login_utc": "2026-08-20T14:30:00Z"
+    },
+    {
+        "id": 102,
+        "is_active": false,
+        "profile": {
+            "first_name": "Jane",
+            "last_name": "Doe",
+            "email": "jane.doe@example.com",
+            "phone": null
+        },
+        "roles": [
+            "user"
+        ],
+        "preferences": {
+            "theme": "light",
+            "notifications": {
+                "email": true,
+                "sms": true
+            }
+        },
+        "account_balance": 0.00,
+        "last_login_utc": "2026-08-19T09:15:22Z"
+    }
+]
