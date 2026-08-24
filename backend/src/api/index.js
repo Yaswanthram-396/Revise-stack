@@ -52,6 +52,7 @@ const addQuote=(req,res)=>{
 const root="/quotes"
 
 
+
 router.get(`${root}/`,getQuotes)
 router.get(`${root}/:id`,getQuoteById)
 router.post(`${root}/:id`,validate,getQuoteById)
