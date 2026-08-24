@@ -1,5 +1,7 @@
 import express from 'express';
 import { data } from '../data/quotes.js';
+import reciperouter from './recipe/index.js'
+
 const router=express.Router();
 
 const validate=(req,res)=>{
@@ -50,6 +52,7 @@ const addQuote=(req,res)=>{
 }
 
 const root="/quotes"
+const recipe="/recipes"
 
 
 
@@ -57,5 +60,6 @@ router.get(`${root}/`,getQuotes)
 router.get(`${root}/:id`,getQuoteById)
 router.post(`${root}/:id`,validate,getQuoteById)
 router.delete(`${root}/:id`,validate,deleteQuoteById)
+router.use(`${recipe}/`,reciperouter)
 
 export default router;
