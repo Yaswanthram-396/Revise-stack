@@ -1,69 +1,60 @@
+import Books from "./src/models/books.js";
 import Recipe from "./src/models/recipe.js";
 
 export const insertData = async () => {
     try {
-        await Recipe.insertMany([
+        await Books.insertMany([
   {
-    name: "Chicken Biryani",
-    cuisine: "Indian",
-    cookTime: 45,
-    rating: 4.8
+    title: "Atomic Habits",
+    author: "James Clear",
+    status: "finished"
   },
   {
-    name: "Masala Dosa",
-    cuisine: "Indian",
-    cookTime: 20,
-    rating: 4.7
+    title: "The Alchemist",
+    author: "Paulo Coelho",
+    status: "reading"
   },
   {
-    name: "Pasta Alfredo",
-    cuisine: "Italian",
-    cookTime: 25,
-    rating: 4.5
+    title: "Rich Dad Poor Dad",
+    author: "Robert Kiyosaki",
+    status: "wishlist"
   },
   {
-    name: "Margherita Pizza",
-    cuisine: "Italian",
-    cookTime: 30,
-    rating: 4.6
+    title: "1984",
+    author: "George Orwell",
+    status: "finished"
   },
   {
-    name: "Chicken Tacos",
-    cuisine: "Mexican",
-    cookTime: 20,
-    rating: 4.4
+    title: "The Psychology of Money",
+    author: "Morgan Housel",
+    status: "reading"
   },
   {
-    name: "Sushi Roll",
-    cuisine: "Japanese",
-    cookTime: 25,
-    rating: 4.9
+    title: "Ikigai",
+    author: "Hector Garcia",
+    status: "wishlist"
   },
   {
-    name: "Pad Thai",
-    cuisine: "Thai",
-    cookTime: 28,
-    rating: 4.6
+    title: "Clean Code",
+    author: "Robert C. Martin",
+    status: "reading"
   },
   {
-    name: "Veg Fried Rice",
-    cuisine: "Chinese",
-    cookTime: 15,
-    rating: 4.3
+    title: "The Great Gatsby",
+    author: "F. Scott Fitzgerald",
+    status: "finished"
   },
   {
-    name: "Butter Chicken",
-    cuisine: "Indian",
-    cookTime: 40,
-    rating: 4.9
+    title: "Deep Work",
+    author: "Cal Newport",
+    status: "wishlist"
   },
   {
-    name: "Cheese Burger",
-    cuisine: "American",
-    cookTime: 18,
-    rating: 4.2
+    title: "The Pragmatic Programmer",
+    author: "Andrew Hunt",
+    status: "reading"
   }
-    ]);
+]);
         console.log("Data inserted successfully");
     } catch (error) {
         console.error("Error inserting data:", error);

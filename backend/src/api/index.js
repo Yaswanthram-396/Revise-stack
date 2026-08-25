@@ -1,65 +1,39 @@
 import express from 'express';
-import { data } from '../data/quotes.js';
 import reciperouter from './recipe/index.js'
+import bookrouter from './books/index.js'
+import {
+getQuotes,
+getQuoteById,
+deleteQuoteById} from "../controllers/index.js"
+import feedbackRouter from "./feedback/index.js"
+import { validateId } from '../middleware/index.js';
+import configRouter from "./config/index.js"
 
 const router=express.Router();
 
-const validate=(req,res)=>{
-    const given=req.body
-    
-    
-    res.json({
-        status:201,
-        message:"success"
-    })
-}
-const getQuotes=(req,res)=>{
- const number=Math.floor(Math.random()*data.length);
-    res.json({
-        status:200,
-        message:"success",
-        data:data[number]
-    })
-}
 
-const getQuoteById=(req,res)=>{
- const number=req.params.id;
-    res.json({
-        status:200,
-        message:"success",
-        data:data.filter((a)=>Number(a.id)==number)
-    })
-}
-const deleteQuoteById=(req,res)=>{
-    const number=req.params.id;
-    const index = data.findIndex((a)=>Number(a.id)==number);
-    if (index !== -1) {
-        const deleted = data.splice(index, 1);
-        res.json({
-            status:200,
-            message:"success",
-            data:deleted[0]
-        })
-    } else {
-        res.json({
-            status:404,
-            message:"Quote not found"
-        })
-    }
-}
-const addQuote=(req,res)=>{
-
-}
 
 const root="/quotes"
 const recipe="/recipes"
+const books="/books"
+const feedback="/feedback"
+const config="/config"
 
 
+
+
+router.use(`${recipe}/`,reciperouter)
+
+router.use(`${books}/`,bookrouter)
+
+router.use(`${feedback}/`,feedbackRouter)
+
+router.use(`${config}/`,configRouter)
 
 router.get(`${root}/`,getQuotes)
 router.get(`${root}/:id`,getQuoteById)
-router.post(`${root}/:id`,validate,getQuoteById)
-router.delete(`${root}/:id`,validate,deleteQuoteById)
-router.use(`${recipe}/`,reciperouter)
+router.get(`${root}/:id`,validateId,getQuoteById)
+router.delete(`${root}/:id`,validateId,deleteQuoteById)
+
 
 export default router;
