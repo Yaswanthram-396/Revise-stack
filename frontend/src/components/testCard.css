@@ -1,0 +1,66 @@
+.story-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 260px;
+    padding: 20px 20px 18px;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(148, 163, 184, 0.24);
+    box-shadow: 0 16px 30px rgba(15, 23, 42, 0.08);
+    backdrop-filter: blur(8px);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.story-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 35px rgba(15, 23, 42, 0.12);
+}
+
+.card-topline {
+    margin-bottom: 12px;
+}
+
+.card-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: #dbeafe;
+    color: #1d4ed8;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.story-card h3 {
+    margin: 0 0 12px;
+    color: #0f172a;
+    font-size: 1.2rem;
+    line-height: 1.4;
+}
+
+.story-card p {
+    margin: 0;
+    flex: 1;
+    color: #475569;
+    line-height: 1.7;
+    font-size: 0.96rem;
+}
+
+.delete-btn {
+    align-self: flex-start;
+    margin-top: 18px;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.delete-btn:hover {
+    transform: translateY(-1px);
+}

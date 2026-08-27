@@ -1,14 +1,12 @@
 import express from "express";
-import root from "./api/index.js"
+import root from "./api/index.js";
 import { Router } from "express";
-const router=Router();
+const router = Router();
 
-const app=express();
+const app = express();
 
 app.use(express.json());
 
-
-app.use('/api', root);
-
+app.use("/api", root);
 
 export default app;
