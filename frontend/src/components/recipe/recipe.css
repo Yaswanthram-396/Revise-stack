@@ -1,0 +1,129 @@
+.card{
+  display: flex;
+  justify-content: center;
+}
+.card1{
+  width: 80%;
+}
+
+.recipe {
+  width: 100%;
+  max-width: 700px;
+  margin: 30px auto;
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+
+.image {
+  width: 100%;
+  height: 320px;
+  display: block;
+  object-fit: cover;
+}
+
+.details {
+  padding: 24px;
+}
+
+.details h2 {
+  margin: 0 0 20px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.basic-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  padding: 16px;
+  margin-bottom: 24px;
+  background: #f7f7f7;
+  border-radius: 10px;
+}
+
+.basic-info span {
+  font-size: 15px;
+  color: #555;
+}
+
+.basic-info strong {
+  color: #222;
+}
+
+.section {
+  margin-top: 24px;
+}
+
+.section h3 {
+  margin: 0 0 12px;
+  font-size: 20px;
+  color: #222;
+}
+
+.section ul,
+.section ol {
+  margin: 0;
+  padding-left: 22px;
+}
+
+.section li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+  color: #555;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  padding: 6px 12px;
+  background: #f1f1f1;
+  border-radius: 20px;
+  font-size: 13px;
+  color: #555;
+}
+
+@media (max-width: 720px) {
+  .recipe {
+    margin: 20px auto;
+  }
+
+  .image {
+    height: 260px;
+  }
+
+  .details {
+    padding: 20px;
+  }
+
+  .details h2 {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 520px) {
+  .recipe {
+    margin: 15px auto;
+    border-radius: 12px;
+  }
+
+  .image {
+    height: 220px;
+  }
+
+  .details {
+    padding: 16px;
+  }
+
+  .basic-info {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
