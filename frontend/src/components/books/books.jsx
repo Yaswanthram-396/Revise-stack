@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { getBooks } from "../../services/public";
+import { getBooks, deleteBookByid, createbook } from "../../services/public";
 import "./index.css";
+import { useToast } from "../toast/toast";
+import BookForm from "./bookform";
 
 function Books() {
   const [books, setBooks] = useState([]);
   const [load, setLoad] = useState(false);
+  const [deleteloading, setDeleteloading] = useState(false);
+  const showToast = useToast();
 
   useEffect(() => {
     getData();
@@ -14,12 +18,35 @@ function Books() {
     setLoad(true);
     try {
       const data = await getBooks();
-      console.log(data);
       setBooks(data);
     } catch (e) {
-      alert("Pleaase Try Again Later");
+      showToast(false, "Please try again later");
     } finally {
       setLoad(false);
+    }
+  };
+  const deleteBook = async (id) => {
+    setDeleteloading(true);
+    try {
+      await deleteBookByid(id);
+      showToast(true, "Deleted succesfully");
+      getData();
+    } catch {
+      showToast(false, "Please try again later");
+    } finally {
+      setDeleteloading(false);
+    }
+  };
+
+  const handleCreatebook = async (data) => {
+    try {
+      await createbook(data);
+      showToast(true, "Created succesfully");
+      getData();
+    } catch {
+      showToast(false, "Please try again later");
+    } finally {
+      setDeleteloading(false);
     }
   };
 
@@ -50,6 +77,12 @@ function Books() {
                 {new Date(item.updatedAt).toLocaleDateString()}
               </p>
             </div>
+            <button
+              disabled={deleteloading}
+              onClick={() => deleteBook(item._id)}
+            >
+              Delete
+            </button>
           </div>
         ))}
       </div>
@@ -58,6 +91,7 @@ function Books() {
 
   return (
     <>
+      <BookForm createbook={handleCreatebook} />
       {load ? (
         <>Loading...</>
       ) : books.length > 0 ? (

@@ -352,7 +352,6 @@ export const getDiaryById = async (req, res) => {
   console.log("user", user);
   try {
     const data = await Diary.findById(id);
-    console.log("data", data);
     if (!data) {
       return res.status(404).json({
         status: 401,
