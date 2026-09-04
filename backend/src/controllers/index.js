@@ -43,9 +43,11 @@ export const registerUser = async (req, res) => {
       status: 201,
       message: "Account created successfully",
       data: {
-        id: createuser._id,
-        email: createuser.email,
-        name: createuser.name,
+        user: {
+          id: createuser._id,
+          email: createuser.email,
+          name: createuser.name,
+        },
         accesstoken: token,
       },
     });
@@ -92,9 +94,11 @@ export const loginUser = async (req, res) => {
       status: 200,
       message: "Login successful",
       data: {
-        id: finduser._id,
-        email: finduser.email,
-        name: finduser.name,
+        user: {
+          id: finduser._id,
+          email: finduser.email,
+          name: finduser.name,
+        },
         accesstoken: token,
       },
     });
@@ -263,6 +267,34 @@ export const updateBookByid = async (req, res) => {
       status: 400,
       message: e._message,
       data: e.errors,
+    });
+  }
+};
+
+export const updateStatus = async (req, res) => {
+  const id = req.params.id;
+  const status = req.body;
+  try {
+    const isbookpresent = await Books.findById(id);
+    if (!isbookpresent) {
+      res.status(404).json({
+        status: 404,
+        message: "No data found",
+        data: id,
+      });
+    }
+    const data = await Books.findByIdAndUpdate(id, status);
+
+    res.status(200).json({
+      status: 200,
+      message: "success",
+      data: data,
+    });
+  } catch (e) {
+    res.status(400).json({
+      status: 400,
+      message: e._message,
+      data: e,
     });
   }
 };

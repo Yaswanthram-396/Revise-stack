@@ -6,6 +6,9 @@ import Dogs from "./components/dogs/dogs";
 import Recipes from "./components/Recipes/recipes";
 import Recipe from "./components/recipe/recipe";
 import Books from "./components/books/books";
+import Login from "./components/login";
+import Register from "./components/register";
+import { ProtectedRoute } from "./protectedRoute";
 
 function App() {
   return (
@@ -15,7 +18,17 @@ function App() {
         <Route path="/dogs" element={<Dogs />} />
         <Route path="/recipes" element={<Recipes />} />
         <Route path="/recipes/:id" element={<Recipe />} />
-        <Route path="/books" element={<Books />} />
+        <Route
+          path="/books"
+          element={
+            <ProtectedRoute>
+              <Books />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );

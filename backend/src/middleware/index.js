@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import Users from "../models/user.js";
 
 export const validate = (fields) => {
   return (req, res, next) => {
@@ -25,7 +26,7 @@ export const validateId = (req, res, next) => {
   next();
 };
 
-export const isUserValid = (req, res, next) => {
+export const isUserValid = async (req, res, next) => {
   const auth = req.headers.authorization;
   if (!auth) {
     return res.status(401).json({
@@ -35,13 +36,21 @@ export const isUserValid = (req, res, next) => {
   try {
     const token = auth.split(" ")[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const data = await Users.findById(decoded.id);
+    if (!data) {
+      res.status(404).json({
+        message: "User Not Found",
+      });
+    }
     req.user = decoded;
-    console.log(decoded);
+
     next();
-  } catch (e) {
-    return res.status(401).json({
-      message: "Invalid Token",
-      e,
-    });
+  } catch (error) {
+    if (error.name === "TokenExpiredError") {
+      return res
+        .status(401)
+        .json({ message: "Token expired. Please log in again." });
+    }
+    return res.status(401).json({ message: "Invalid token." });
   }
 };

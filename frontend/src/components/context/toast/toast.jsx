@@ -8,15 +8,11 @@ export function ToastProvider({ children }) {
     isSuccess: true,
   });
 
-  const showToast = (whichToast, message) => {
-    setToast({
-      showToast: true,
-      message,
-      isSuccess: whichToast,
-    });
+  const showToast = (isSuccess, message) => {
+    setToast({ showToast: true, message, isSuccess });
 
     setTimeout(() => {
-      setToast({ ...toast, showToast: false, message: "" });
+      setToast((prev) => ({ ...prev, showToast: false }));
     }, 3000);
   };
 

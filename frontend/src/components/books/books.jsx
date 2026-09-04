@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { getBooks, deleteBookByid, createbook } from "../../services/public";
+import {
+  getBooks,
+  deleteBookByid,
+  createbook,
+  updateBookStatus,
+} from "../../services/public";
 import "./index.css";
-import { useToast } from "../toast/toast";
+import { useToast } from "../context/toast/toast";
 import BookForm from "./bookform";
 
 function Books() {
@@ -30,6 +35,17 @@ function Books() {
     try {
       await deleteBookByid(id);
       showToast(true, "Deleted succesfully");
+      getData();
+    } catch {
+      showToast(false, "Please try again later");
+    } finally {
+      setDeleteloading(false);
+    }
+  };
+  const handleUpdateStatus = async (id, status) => {
+    try {
+      await updateBookStatus(id, status);
+      showToast(true, "Updated succesfully");
       getData();
     } catch {
       showToast(false, "Please try again later");
@@ -77,6 +93,14 @@ function Books() {
                 {new Date(item.updatedAt).toLocaleDateString()}
               </p>
             </div>
+            <select
+              value={item.status}
+              onChange={(e) => handleUpdateStatus(item._id, e.target.value)}
+            >
+              <option value={"reading"}>Reading</option>
+              <option value={"wishlist"}> wishlist</option>
+              <option value={"finished"}>finished</option>
+            </select>
             <button
               disabled={deleteloading}
               onClick={() => deleteBook(item._id)}

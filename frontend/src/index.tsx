@@ -2,19 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { ToastProvider } from './components/toast/toast';
-
-import './index.css';
+import { ToastProvider } from './components/context/toast/toast';
+import { CookiesProvider } from 'react-cookie';
+import { AuthProvider } from './components/context/auth';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <ToastProvider>
-      <App />
-    </ToastProvider>
-  </React.StrictMode>
+  // <React.StrictMode>
+    <CookiesProvider>
+      <AuthProvider>
+        <ToastProvider>
+          <App />
+        </ToastProvider>
+      </AuthProvider>
+    </CookiesProvider>
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
