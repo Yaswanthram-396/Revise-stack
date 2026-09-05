@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useToast } from "../context/toast/toast";
 import { createUser } from "../../services/config";
@@ -11,7 +11,7 @@ function Register() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [cookies, setCookie] = useCookies(["user"]);
-  const { user, setUser } = useAuth();
+  const { setUser } = useAuth();
   const showToast = useToast();
   const navigate = useNavigate();
 
@@ -24,6 +24,7 @@ function Register() {
       showToast(true, "Account created successfully");
       navigate("/books");
     } catch (error) {
+      console.log(error);
       showToast(false, error?.response?.data?.message);
     }
   };
