@@ -7,21 +7,32 @@ import {
   deleteBookByid,
   updateStatus,
 } from "../../controllers/index.js";
-import { validate, validateId } from "../../middleware/index.js";
+import { isUserValid, validate, validateId } from "../../middleware/index.js";
 
 const router = express.Router();
 
-router.get("/", getBooks);
-router.post("/", validate(["title", "author", "status"]), createBook);
-router.get("/:id", validateId, getBookByid);
+router.get("/", isUserValid, getBooks);
+router.post(
+  "/",
+  validate(["title", "author", "status"]),
+  isUserValid,
+  createBook,
+);
+router.get("/:id", validateId, isUserValid, getBookByid);
 router.put(
   "/:id",
   validateId,
-  validate(["title", "author", "status"]),
+  validate(["title", "author", isUserValid, "status"]),
   updateBookByid,
 );
-router.patch("/:id", validateId, validate(["status"]), updateStatus);
+router.patch(
+  "/:id",
+  validateId,
+  validate(["status"]),
+  isUserValid,
+  updateStatus,
+);
 
-router.delete("/:id", validateId, deleteBookByid);
+router.delete("/:id", validateId, isUserValid, deleteBookByid);
 
 export default router;

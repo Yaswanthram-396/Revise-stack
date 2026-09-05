@@ -1,5 +1,6 @@
 import axios from "axios";
 import { url } from "./public";
+import axiosInstance from "../axiosInstance";
 
 export const loginUser = async (email, password) => {
   const response = await axios.post(`${url}/config/login`, {
@@ -20,5 +21,10 @@ export const getMe = async (token) => {
       Authorization: `Bearer ${token}`,
     },
   });
+  return response.data.data;
+};
+
+export const logoutUser = async () => {
+  const response = await axiosInstance.get(`/config/logout`);
   return response.data.data;
 };

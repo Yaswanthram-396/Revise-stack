@@ -8,10 +8,13 @@ import {
 import "./index.css";
 import { useToast } from "../context/toast/toast";
 import BookForm from "./bookform";
+import { logoutUser } from "../../services/config";
+import { useCookies } from "react-cookie";
 
 function Books() {
   const [books, setBooks] = useState([]);
   const [load, setLoad] = useState(false);
+  const [cookies, removeCookie] = useCookies(["user"]);
   const [deleteloading, setDeleteloading] = useState(false);
   const showToast = useToast();
 
@@ -66,6 +69,17 @@ function Books() {
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+      removeCookie("user", {
+        path: "/",
+      });
+      showToast(true, "Logged out succesfully");
+    } catch {
+      showToast(false, "Please try again later");
+    }
+  };
   const showdata = (val) => {
     return (
       <div className="booksdata">
@@ -115,6 +129,7 @@ function Books() {
 
   return (
     <>
+      <button onClick={handleLogout}>Logout</button>
       <BookForm createbook={handleCreatebook} />
       {load ? (
         <>Loading...</>

@@ -111,6 +111,28 @@ export const loginUser = async (req, res) => {
   }
 };
 
+export const logoutUser = async (req, res) => {
+  try {
+    res.clearCookie("user", {
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax",
+      path: "/",
+    });
+    res.status(200).json({
+      status: 200,
+      message: "Logout successful",
+      data: null,
+    });
+  } catch (e) {
+    return res.status(400).json({
+      status: 400,
+      message: "error",
+      error: e.message,
+    });
+  }
+};
+
 export const getQuotes = (req, res) => {
   const number = Math.floor(Math.random() * data.length);
   res.json({

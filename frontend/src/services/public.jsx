@@ -1,10 +1,10 @@
-import axios from "axios";
+import axiosInstance from "../axiosInstance";
 
 export const url = process.env.REACT_APP_API_URL;
 
 export const getBooks = async () => {
   try {
-    const response = await axios.get(`${url}/books`);
+    const response = await axiosInstance.get(`/books`);
     return response.data.data;
   } catch (e) {
     return e;
@@ -12,7 +12,7 @@ export const getBooks = async () => {
 };
 export const deleteBookByid = async (id) => {
   try {
-    const response = await axios.delete(`${url}/books/${id}`);
+    const response = await axiosInstance.delete(`/books/${id}`);
     return response.data.data;
   } catch (e) {
     return e;
@@ -21,7 +21,7 @@ export const deleteBookByid = async (id) => {
 
 export const createbook = async (data) => {
   try {
-    const response = await axios.post(`${url}/books`, data);
+    const response = await axiosInstance.post(`/books`, data);
     return response.data.data;
   } catch (e) {
     return e;
@@ -30,7 +30,7 @@ export const createbook = async (data) => {
 
 export const updateBookStatus = async (id, status) => {
   try {
-    const response = await axios.patch(`${url}/books/${id}`, {
+    const response = await axiosInstance.patch(`/books/${id}`, {
       status: status,
     });
     return response.data.data;
