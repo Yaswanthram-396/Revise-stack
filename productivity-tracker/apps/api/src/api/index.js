@@ -12,6 +12,7 @@ import dairyRouter from "./diary/index.js";
 import { validateId } from "../middleware/index.js";
 import configRouter from "./config/index.js";
 import multer from "multer";
+import expensesRouter from "./expenses/index.js";
 
 const upload = multer({ storage: multer.memoryStorage() });
 
@@ -23,6 +24,7 @@ const books = "/books";
 const feedback = "/feedback";
 const config = "/config";
 const diary = "/diary";
+const expenses = "/expenses";
 
 router.use(`${recipe}/`, reciperouter);
 
@@ -33,6 +35,8 @@ router.use(`${feedback}/`, feedbackRouter);
 router.use(`${config}/`, configRouter);
 
 router.use(`${diary}/`, dairyRouter);
+
+router.use(`${expenses}/`, expensesRouter);
 
 router.post(`${root}/`, upload.single("testfile"), uploadFile);
 

@@ -9,6 +9,7 @@ import Users from "../models/user.js";
 
 import { uploadFiletoImagekit } from "../../services/imagestorage.service.js";
 import Diary from "../models/diary.js";
+import Expense from "../models/expense.js";
 
 export const registerUser = async (req, res) => {
   try {
@@ -129,6 +130,128 @@ export const logoutUser = async (req, res) => {
       status: 400,
       message: "error",
       error: e.message,
+    });
+  }
+};
+
+export const getExpenses = async (req, res) => {
+  const user = req.user;
+
+  try {
+    const filter = { user: user.id };
+    if (req.query.month) {
+      const [year, month] = req.query.month.split("-").map(Number);
+      if (!year || !month || month < 1 || month > 12)
+        return res.status(400).json({ status: 400, message: "Invalid month" });
+      filter.date = {
+        $gte: new Date(Date.UTC(year, month - 1, 1)),
+        $lt: new Date(Date.UTC(year, month, 1)),
+      };
+    }
+    const data = await Expense.find(filter).sort({ date: -1, createdAt: -1 });
+    return res.json({ status: 200, message: "success", data });
+  } catch (e) {
+    return res.status(500).json({
+      status: 500,
+      message: "Internal server Error",
+      error: e,
+    });
+  }
+};
+
+export const createExpense = async (req, res) => {
+  const { title, amount, category, date, notes } = req.body;
+  console.log("req.body", req.body);
+  const user = req.user;
+
+  try {
+    const data = await Expense.create({
+      title,
+      amount,
+      category,
+      date,
+      notes,
+      user: user.id,
+    });
+    return res.status(200).json({
+      status: 200,
+      message: "success",
+      data: data,
+    });
+  } catch (e) {
+    return res.status(500).json({
+      status: 500,
+      message: "Internal server Error",
+      error: e,
+    });
+  }
+};
+
+export const updateExpense = async (req, res) => {
+  const { title, amount, category, date, notes } = req.body;
+  const user = req.user;
+
+  try {
+    const expense = await Expense.findById(req.params.id);
+    if (!expense) {
+      return res.status(404).json({
+        status: 404,
+        message: "No expense Found",
+      });
+    }
+    if (expense.user.toString() !== user.id.toString()) {
+      return res.status(401).json({
+        status: 401,
+        message: "You didn't have access to this expense",
+      });
+    }
+
+    expense.title = title;
+    expense.amount = amount;
+    expense.category = category;
+    expense.date = date;
+    expense.notes = notes;
+    const data = await expense.save();
+
+    return res.json({ status: 200, message: "success", data: data });
+  } catch (e) {
+    return res.status(500).json({
+      status: 500,
+      message: "Internal server Error",
+      error: e,
+    });
+  }
+};
+
+export const deleteExpense = async (req, res) => {
+  const user = req.user;
+
+  try {
+    const expense = await Expense.findById(req.params.id);
+    if (!expense) {
+      return res.status(404).json({
+        status: 404,
+        message: "No expense Found",
+      });
+    }
+    if (expense.user.toString() !== user.id.toString()) {
+      return res.status(401).json({
+        status: 401,
+        message: "You didn't have access to this expense",
+      });
+    }
+
+    const data = await Expense.findByIdAndDelete(req.params.id);
+    if (!data)
+      return res
+        .status(404)
+        .json({ status: 404, message: "Expense not found" });
+    return res.json({ status: 200, message: "success", data });
+  } catch (e) {
+    return res.status(500).json({
+      status: 500,
+      message: "Internal server Error",
+      error: e,
     });
   }
 };

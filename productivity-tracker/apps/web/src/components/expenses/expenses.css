@@ -1,0 +1,26 @@
+.expenses-page { max-width: 1180px; }
+.expense-total { min-width: 150px; text-align: right; color: #cbd5e1; }
+.expense-total span, .expense-total small { display: block; font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; }
+.expense-total strong { display: block; margin: 4px 0; color: #f8fafc; font-size: 2rem; }
+.expense-form-panel { margin-bottom: 28px; padding: 24px; border-radius: 16px; background: #fff; box-shadow: 0 10px 24px rgba(15, 23, 42, .07); }
+.panel-heading, .expense-toolbar, .expense-card-top, .card-actions { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.panel-heading h2 { margin: 0; color: #1e293b; }
+.expense-form { display: grid; grid-template-columns: 1.4fr .7fr 1fr 1fr; gap: 16px; margin-top: 20px; }
+.expense-form label, .expense-toolbar label { display: grid; gap: 7px; color: #475569; font-size: .85rem; font-weight: 700; }
+.expense-form input, .expense-form select, .expense-toolbar input, .expense-toolbar select { min-width: 0; border: 1px solid #cbd5e1; border-radius: 7px; padding: 10px 11px; color: #1e293b; background: #fff; }
+.notes-field { grid-column: span 2; }
+.primary-button, .edit-button, .delete-button, .text-button { border: 0; border-radius: 6px; padding: 10px 15px; font-weight: 700; cursor: pointer; }
+.primary-button { align-self: end; background: #2563eb; color: #fff; }
+.text-button { color: #2563eb; background: transparent; }
+.expense-toolbar { justify-content: flex-start; margin: 0 0 20px; }
+.expense-toolbar > span { margin-left: auto; color: #64748b; font-weight: 700; }
+.expense-card { display: flex; min-height: 190px; flex-direction: column; gap: 10px; padding: 20px; border-radius: 12px; background: #fff; box-shadow: 0 6px 16px rgba(15, 23, 42, .06); }
+.expense-card h2 { margin: 2px 0 0; color: #1e293b; font-size: 1.2rem; }
+.expense-card strong { color: #0f766e; font-size: 1.25rem; }
+.category-tag { border-radius: 5px; padding: 5px 8px; background: #dbeafe; color: #1d4ed8; font-size: .75rem; font-weight: 700; }
+.expense-date, .expense-notes { margin: 0; color: #64748b; font-size: .9rem; }
+.expense-notes { flex-grow: 1; }
+.card-actions { justify-content: flex-start; margin-top: auto; }
+.edit-button { background: #e0f2fe; color: #0369a1; }
+.delete-button { background: #fee2e2; color: #b91c1c; }
+@media (max-width: 760px) { .app-header, .expense-toolbar { align-items: flex-start; flex-direction: column; } .expense-total { text-align: left; } .expense-form { grid-template-columns: 1fr; } .notes-field { grid-column: auto; } .expense-toolbar > span { margin-left: 0; } }
